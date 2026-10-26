@@ -11,16 +11,16 @@
 
 /* ctype */
 #define T_ISDIGIT
-/* #define T_ISALPHA  */
-/* #define T_ISALNUM  */
-/* #define T_ISUPPER  */
-/* #define T_ISLOWER  */
-/* #define T_ISSPACE  */
-/* #define T_ISXDIGIT */
-/* #define T_ISPUNCT  */
-/* #define T_ISPRINT  */
-/* #define T_TOUPPER  */
-/* #define T_TOLOWER  */
+#define T_ISALPHA  
+#define T_ISALNUM
+#define T_ISUPPER
+#define T_ISLOWER
+#define T_ISSPACE
+#define T_ISXDIGIT
+#define T_ISPUNCT
+#define T_ISPRINT
+#define T_TOUPPER
+#define T_TOLOWER
 
 /* memory */
 /* #define T_MEMSET  */
