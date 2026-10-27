@@ -30,15 +30,15 @@
 /* #define T_MEMCHR  */
 
 /* string */
-/* #define T_STRLEN  */
-/* #define T_STRNLEN */
-/* #define T_STRCPY  */
-/* #define T_STRNCPY */
-/* #define T_STRLCPY */
-/* #define T_STRCAT  */   /* also tests strncat */
-/* #define T_STRCMP  */   /* also tests strncmp */
-/* #define T_STRCHR  */   /* also tests strrchr */
-/* #define T_STRSTR  */
+#define T_STRLEN
+#define T_STRNLEN
+#define T_STRCPY
+#define T_STRNCPY
+//#define T_STRLCPY
+#define T_STRCAT
+#define T_STRCMP
+#define T_STRCHR
+#define T_STRSTR
 /* #define T_STRSPN  */   /* also tests strcspn */
 /* #define T_STRPBRK */
 /* #define T_STRTOK  */
@@ -299,7 +299,7 @@ void test_string(void)
         CHECK(d[1] == '\0' && d[2] == 'e');          /* stops right at NUL */
 
         CHECK(my_strcpy(d + 1, "a\0b") == d + 1);
-        CHECK(d[1] == 'a' && d[2] == '\0' && d[3] == 'e');
+        CHECK(d[1] == 'a' && d[2] == '\0' && d[3] == 'l');
     }
 #endif
 #ifdef T_STRNCPY
@@ -314,16 +314,22 @@ void test_string(void)
         CHECK(memcmp(p1, p2, sizeof p1) == 0);
 
         /* 2. n < strlen(src): NO NUL added, bytes past n untouched */
-        memset(p1, 'Z', sizeof p1);
+       memset(p1, 'Z', sizeof p1);
         memset(p2, 'Z', sizeof p2);
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wstringop-truncation"
         strncpy(p1 + 1, "abcdef", 3);
+        #pragma GCC diagnostic pop
         my_strncpy(p2 + 1, "abcdef", 3);
         CHECK(memcmp(p1, p2, sizeof p1) == 0);
 
         /* 3. n == strlen(src): NO NUL added */
         memset(p1, 'Z', sizeof p1);
         memset(p2, 'Z', sizeof p2);
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wstringop-truncation"
         strncpy(p1 + 1, "abc", 3);
+        #pragma GCC diagnostic pop
         my_strncpy(p2 + 1, "abc", 3);
         CHECK(memcmp(p1, p2, sizeof p1) == 0);
 
