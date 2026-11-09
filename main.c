@@ -34,16 +34,16 @@
 #define T_STRNLEN
 #define T_STRCPY
 #define T_STRNCPY
-//#define T_STRLCPY
+#define T_STRLCPY
 #define T_STRCAT
 #define T_STRCMP
 #define T_STRCHR
 #define T_STRSTR
-/* #define T_STRSPN  */   /* also tests strcspn */
-/* #define T_STRPBRK */
-/* #define T_STRTOK  */
+#define T_STRSPN
+#define T_STRPBRK
+#define T_STRTOK
 /* #define T_STRDUP  */   /* needs malloc + free */
-/* #define T_STRREV  */
+#define T_STRREV
 
 /* conversion */
 /* #define T_ATOI    */   /* also tests atol */

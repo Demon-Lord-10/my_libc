@@ -175,11 +175,103 @@ char *my_strstr(const char *h, const char *n){
     return NULL;
 }
 
-size_t my_strspn(const char *s, const char *accept);
-size_t my_strcspn(const char *s, const char *reject);
-char  *my_strpbrk(const char *s, const char *accept);
-char  *my_strtok(char *s, const char *delim);
-char  *my_strdup(const char *s);
-size_t my_strlcpy(char *d, const char *s, size_t n);
-void   my_strrev(char *s);
+size_t my_strspn(const char *s, const char *accept){
+    char set[256]={0};
+    size_t i = 0;
+    for(;accept[i] != '\0'; ++i){
+        set[(unsigned char)accept[i]] = 1;
+    }
+
+    i=0;
+
+    while(*s){
+        if(set[(unsigned char)*s]) ++i;
+        else break;
+        ++s;
+    }
+    return i;
+}
+
+size_t my_strcspn(const char *s, const char *reject){
+    char set[256]={0};
+    size_t i = 0;
+    for(;reject[i] != '\0'; ++i){
+        set[(unsigned char)reject[i]] = 1;
+    }
+
+    i=0;
+
+    while(*s){
+        if(!set[(unsigned char)*s]) ++i;
+        else break;
+        ++s;
+    }
+    return i;
+}
+
+char *my_strpbrk(const char *s, const char *accept){
+    unsigned char set[256] = {0};
+
+    for(; *accept; ++accept)
+        set[(unsigned char)*accept] = 1;
+
+    for(; *s; ++s) {
+        if(set[(unsigned char)*s])
+            return (char *)s;
+    }
+
+    return NULL;
+}
+
+char  *my_strtok(char *s, const char *delim){
+    static char *x = NULL;
+    if(s) x = s;
+    if(!x) return NULL;
+
+    x += my_strspn(x,delim);
+    if(*x == '\0'){
+        x = NULL;
+        return NULL;
+    }
+
+    char *start = x;
+    x += my_strcspn(x, delim);
+
+    if(*x){
+        *x = '\0';
+        x++;
+    }
+    else{
+        x = NULL;
+    }
+    return start;
+}
+
+char *my_strdup(const char *s);                     //Requires Malloc
+
+size_t my_strlcpy(char *d, const char *s, size_t n){
+    const char *start = s;
+
+    if(n != 0){
+        while(n>1 && *s){
+            --n;
+            *d++ = *s++;
+        }
+        *d = '\0';
+    }
+
+    while (*s) ++s;
+    return (size_t)(s-start);
+}
+
+void my_strrev(char *s){
+    size_t i = 0;
+    for(i = 0; s[i]; i++);
+    size_t j = 0;
+    for(j = 0; j<i/2; j++){
+        s[i-j-1] = s[i-j-1]^s[j];
+        s[j] = s[i-j-1]^s[j];
+        s[i-j-1] = s[i-j-1]^s[j];
+    }
+}
 
