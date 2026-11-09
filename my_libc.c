@@ -265,13 +265,17 @@ size_t my_strlcpy(char *d, const char *s, size_t n){
 }
 
 void my_strrev(char *s){
-    size_t i = 0;
-    for(i = 0; s[i]; i++);
-    size_t j = 0;
-    for(j = 0; j<i/2; j++){
-        s[i-j-1] = s[i-j-1]^s[j];
-        s[j] = s[i-j-1]^s[j];
-        s[i-j-1] = s[i-j-1]^s[j];
+    char* e = s;
+
+    while(*e) e++;
+
+    if (e == s)
+        return;
+
+    for(e--;s<e;s++,e--){
+        *s = *s ^ *e;
+        *e = *s ^ *e;
+        *s = *s ^ *e;
     }
 }
 
