@@ -46,7 +46,7 @@
 #define T_STRREV
 
 /* conversion */
-/* #define T_ATOI    */   /* also tests atol */
+#define T_ATOI            /* also tests atol */
 /* #define T_STRTOL  */
 /* #define T_STRTOUL */
 /* #define T_ITOA    */
@@ -58,7 +58,7 @@
 /* #define T_RAND    */
 
 /* allocator */
-/* #define T_MALLOC  */   /* also tests free */
+#define T_MALLOC     /* also tests free */
 /* #define T_CALLOC  */   /* needs malloc + free */
 /* #define T_REALLOC */   /* needs malloc + free */
 
